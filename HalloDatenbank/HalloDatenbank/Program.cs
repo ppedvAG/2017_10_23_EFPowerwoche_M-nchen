@@ -69,9 +69,39 @@ namespace HalloDatenbank
                             var firstname = (string)reader["FirstName"];
 
                             var birthDate = reader.GetDateTime(5);
-                            var hiredate = (DateTime)reader["HireDate"];
+                            var hiredate = (reader["HireDate"] as DateTime?) ?? default(DateTime);
 
-                            Console.WriteLine($"{lastname, -10} | {firstname, -10} | {birthDate.ToString("dd.MM.yyyy")} | {hiredate.ToString("dd.MM.yyyy")}");
+                            Console.WriteLine($"{lastname, -10} | {firstname, -10} | {birthDate.ToString("dd.MM.yyyy")} | {(hiredate.ToString("dd.MM.yyyy"))}");
+                        }
+                    }
+                }
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "Insert Into Employees (Firstname, Lastname, Birthdate) Values (@firstname, @lastname, @birthdate)";
+                    command.Parameters.AddWithValue("@firstname", "Max");
+                    command.Parameters.AddWithValue("@lastname", "Mustermann");
+                    command.Parameters.AddWithValue("@birthdate", new DateTime(1980, 10, 23));
+
+                    //var affectedRows = command.ExecuteNonQuery();
+                    //Console.WriteLine($"{affectedRows} Employees were inserted.");
+                }
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "CustOrderHist @cid";
+                    //command.CommandType = System.Data.CommandType.StoredProcedure;
+                    //command.Parameters.AddWithValue("@CustomerId", "ANTON");
+                    command.Parameters.AddWithValue("@cid", "ANTON");
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var productName = reader["Productname"] as string;
+                            var count = (int)reader["Total"];
+
+                            Console.WriteLine($"{productName,-35} - {count,4}");
                         }
                     }
                 }
