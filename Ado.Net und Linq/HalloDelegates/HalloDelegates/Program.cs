@@ -15,9 +15,6 @@ namespace HalloDelegates
             Console.ReadLine();
         }
 
-        private static string MeineMethode(int i, double d)
-        {
-            return (i + d).ToString();
-        }
+        private static string MeineMethode(int i, double d) =>  (i + d).ToString();
     }
 }
