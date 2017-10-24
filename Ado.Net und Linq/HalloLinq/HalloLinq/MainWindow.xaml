@@ -24,10 +24,23 @@
             </WrapPanel.Resources>
 
             <Button Content="Load All Employees" Click="LoadAllEmployees_Click" />
-
+            <Button Content="Restriction" Click="Restriction_Click" />
+            <Button Content="Ordering" Click="Ordering_Click" />
+            <Button Content="Projection" Click="Projection_Click" />
+            <Button Content="Grouping" Click="Grouping_Click" />
+            <Button Content="Partitioning" Click="Partitioning_Click" />
+            <Button Content="ElementOperators" Click="ElementOperators_Click" />
+            <Button Content="QuantifyingOperators" Click="Quantifying_Click" />
+            <Button Content="AggregatingOperators" Click="Aggregating_Click" />
+            <Button Content="InnerJoin" Click="InnerJoin_Click" />
+            <Button Content="GroupJoin" Click="GroupJoin_Click" />
         </WrapPanel>
 
         <DataGrid Name="myDataGrid" Grid.Column="0" Grid.Row="1" />
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock Name="firstEmployee" />
+        </StackPanel>
     </Grid>
 </Window>
  
