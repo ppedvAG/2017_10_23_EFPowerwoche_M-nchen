@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Globalization;
 
 namespace HalloDatenbank
 {
@@ -8,7 +7,9 @@ namespace HalloDatenbank
     {
         static void Main(string[] args)
         {
+            // https://www.connectionstrings.com/
             var connectionString = "Data Source=.;Initial Catalog=NORTHWND;Integrated Security=True;";
+
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -67,7 +68,7 @@ namespace HalloDatenbank
                         {
                             var lastname = reader.GetString(1);
                             var firstname = (string)reader["FirstName"];
-
+                           
                             var birthDate = reader.GetDateTime(5);
                             var hiredate = (reader["HireDate"] as DateTime?) ?? default(DateTime);
 

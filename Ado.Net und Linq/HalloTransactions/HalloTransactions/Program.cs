@@ -29,7 +29,7 @@ Select EmployeeId
                     {
                         while (reader.Read())
                         {
-                            employees.Add(new Employee
+                            employees.Add(new Employee()
                             {
                                 Id = (int)reader["EmployeeId"],
                                 Name = (string)reader["Name"],
@@ -61,7 +61,7 @@ Select EmployeeId
                             command.AddParamterWithValues("@birthdate", e.Birthdate.AddYears(1));
                             command.AddParamterWithValues("@id", e.Id);
 
-                            if (e.Id == 5)
+                            if (e.Id == 5)  // any Error
                                 continue;
 
                             countAffectedRows += command.ExecuteNonQuery();
