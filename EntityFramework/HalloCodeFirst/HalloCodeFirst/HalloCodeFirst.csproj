@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\StarConfiguration.cs" />
+    <Compile Include="Conventions\StringConventions.cs" />
     <Compile Include="LostStarsDbContext.cs" />
     <Compile Include="Migrations\201710251002031_InitialMigration.cs" />
     <Compile Include="Migrations\201710251002031_InitialMigration.Designer.cs">

@@ -1,5 +1,6 @@
 ﻿using HalloCodeFirst.Models;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace HalloCodeFirst
 {
@@ -15,6 +16,8 @@ namespace HalloCodeFirst
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Add<Conventions.StringConventions>();
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.Add(new Configurations.StarConfiguration());
 
             modelBuilder.Entity<Galaxy>()
@@ -22,13 +25,6 @@ namespace HalloCodeFirst
                 .WithRequired(s => s.Galaxy)
                 .HasForeignKey(s => s.GalaxyId)
                 .WillCascadeOnDelete(true);
-
-            modelBuilder.Properties<string>()
-                .Configure(c => c.IsRequired().HasMaxLength(50));
-
-            modelBuilder.Properties<string>()
-                .Where(p => p.Name.ToLower(/* cultureInfo */).Contains("description"))
-                .Configure(c => c.IsOptional().IsMaxLength());
         }
     }
 }
