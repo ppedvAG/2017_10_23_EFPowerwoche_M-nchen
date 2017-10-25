@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201710251208067_ConfigureGalaxyTable.Designer.cs">
       <DependentUpon>201710251208067_ConfigureGalaxyTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710251228568_AddStarsTable.cs" />
+    <Compile Include="Migrations\201710251228568_AddStarsTable.Designer.cs">
+      <DependentUpon>201710251228568_AddStarsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Galaxy.cs" />
     <Compile Include="Models\GalaxyForm.cs" />
@@ -75,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710251208067_ConfigureGalaxyTable.resx">
       <DependentUpon>201710251208067_ConfigureGalaxyTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710251228568_AddStarsTable.resx">
+      <DependentUpon>201710251228568_AddStarsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
