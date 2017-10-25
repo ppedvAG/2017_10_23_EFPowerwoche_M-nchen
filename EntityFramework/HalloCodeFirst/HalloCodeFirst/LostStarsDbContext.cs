@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using HalloCodeFirst.Models;
+using System.Data.Entity;
 
 namespace HalloCodeFirst
 {
@@ -8,5 +9,7 @@ namespace HalloCodeFirst
         { }
         public LostStarsDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
         { }
+
+        public DbSet<Galaxy> Galaxies { get; set; }
     }
 }
