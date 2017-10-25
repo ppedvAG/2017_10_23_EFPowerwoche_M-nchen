@@ -27,6 +27,8 @@ namespace HalloCodeFirst.Models
         [Column("GalaxyForm")]
         public GalaxyForm Form { get; set; }
 
+        public string Description { get; set; }
+
         public ICollection<Star> Stars { get; } = new HashSet<Star>();
     }
 }

@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201710251317421_ConfigureGalaxyStarsRelationShip.Designer.cs">
       <DependentUpon>201710251317421_ConfigureGalaxyStarsRelationShip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710251411137_AddDescriptionToAllTables.cs" />
+    <Compile Include="Migrations\201710251411137_AddDescriptionToAllTables.Designer.cs">
+      <DependentUpon>201710251411137_AddDescriptionToAllTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Galaxy.cs" />
     <Compile Include="Models\GalaxyForm.cs" />
@@ -97,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710251317421_ConfigureGalaxyStarsRelationShip.resx">
       <DependentUpon>201710251317421_ConfigureGalaxyStarsRelationShip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710251411137_AddDescriptionToAllTables.resx">
+      <DependentUpon>201710251411137_AddDescriptionToAllTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
