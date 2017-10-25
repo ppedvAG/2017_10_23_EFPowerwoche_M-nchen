@@ -11,5 +11,6 @@ namespace HalloCodeFirst
         { }
 
         public DbSet<Galaxy> Galaxies { get; set; }
+        public DbSet<Star> Stars { get; set; }
     }
 }
