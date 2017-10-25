@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201710251002031_InitialMigration.Designer.cs">
       <DependentUpon>201710251002031_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710251208067_ConfigureGalaxyTable.cs" />
+    <Compile Include="Migrations\201710251208067_ConfigureGalaxyTable.Designer.cs">
+      <DependentUpon>201710251208067_ConfigureGalaxyTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Galaxy.cs" />
     <Compile Include="Models\GalaxyForm.cs" />
@@ -67,6 +71,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710251002031_InitialMigration.resx">
       <DependentUpon>201710251002031_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710251208067_ConfigureGalaxyTable.resx">
+      <DependentUpon>201710251208067_ConfigureGalaxyTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

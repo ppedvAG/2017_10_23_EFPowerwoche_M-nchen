@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HalloCodeFirst.Models
 {
+    [Table("Galaxies_Table")]
     internal class Galaxy
     {
         [Key]
