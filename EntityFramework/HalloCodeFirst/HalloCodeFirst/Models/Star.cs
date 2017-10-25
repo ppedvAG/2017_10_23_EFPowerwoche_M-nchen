@@ -9,5 +9,9 @@ namespace HalloCodeFirst.Models
         public DateTime DiscoveryDate { get; set; }
         public decimal Mass { get; set; }
         public float DistanceToEarth { get; set; }
+
+        //[ForeignKey("Galaxy")]
+        public int GalaxyId { get; set; }
+        public Galaxy Galaxy { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,5 +26,7 @@ namespace HalloCodeFirst.Models
         //[NotMapped]
         [Column("GalaxyForm")]
         public GalaxyForm Form { get; set; }
+
+        public ICollection<Star> Stars { get; } = new HashSet<Star>();
     }
 }

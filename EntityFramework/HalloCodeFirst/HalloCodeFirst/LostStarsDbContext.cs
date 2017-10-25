@@ -16,6 +16,12 @@ namespace HalloCodeFirst
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new Configurations.StarConfiguration());
+
+            modelBuilder.Entity<Galaxy>()
+                .HasMany(g => g.Stars)
+                .WithRequired(s => s.Galaxy)
+                .HasForeignKey(s => s.GalaxyId)
+                .WillCascadeOnDelete(true);
         }
     }
 }
