@@ -14,10 +14,6 @@ namespace HalloCodeFirst.Configurations
             Property(s => s.Id)
                 .HasColumnName("StarId");
 
-            Property(s => s.Name)
-                .HasMaxLength(50)
-                .IsRequired();
-
             Property(s => s.DiscoveryDate)
                 .HasColumnType("date");
 

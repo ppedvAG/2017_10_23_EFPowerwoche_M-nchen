@@ -16,8 +16,6 @@ namespace HalloCodeFirst.Models
         //[Column("GalaxyId2", Order = 2)]
         //public int Id2 { get; set; }
 
-        [Required]
-        [MaxLength(50)]
         public string Name { get; set; }
 
         [Column(TypeName = "date")]
