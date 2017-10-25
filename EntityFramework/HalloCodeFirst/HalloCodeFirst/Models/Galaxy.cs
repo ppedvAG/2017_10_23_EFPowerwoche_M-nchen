@@ -22,6 +22,7 @@ namespace HalloCodeFirst.Models
         [Column(TypeName = "date")]
         public DateTime DiscoveryDate { get; set; }
 
+        //[NotMapped]
         [Column("GalaxyForm")]
         public GalaxyForm Form { get; set; }
     }
