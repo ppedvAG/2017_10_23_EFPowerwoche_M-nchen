@@ -15,13 +15,7 @@ namespace HalloCodeFirst
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Star>().ToTable("Stars_Table");
-            modelBuilder.Entity<Star>().HasKey(s => s.Id);
-            //modelBuilder.Entity<Star>().HasKey(s => new { s.Id, s.Id2, s.Id3 });
-            modelBuilder.Entity<Star>().Property(s => s.Id).HasColumnName("StarId");
-            modelBuilder.Entity<Star>().Property(s => s.Name).HasMaxLength(50).IsRequired();
-            modelBuilder.Entity<Star>().Property(s => s.DiscoveryDate).HasColumnType("date");
-            //modelBuilder.Entity<Star>().Ignore(s => s.Mass);
+            modelBuilder.Configurations.Add(new Configurations.StarConfiguration());
         }
     }
 }
