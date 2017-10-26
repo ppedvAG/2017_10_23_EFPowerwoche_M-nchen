@@ -4,12 +4,11 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace HalloCodeFirst
 {
-    internal class LostStarsDbContext : DbContext
+    public class LostStarsDbContext : DbContext
     {
-        public LostStarsDbContext() : base("name=LostStarConnectionString")
+        public LostStarsDbContext() : this("name=LostStarConnectionString")
         { }
-        public LostStarsDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
-        { }
+        public LostStarsDbContext(string nameOrConnectionString) : base(nameOrConnectionString) => Configuration.LazyLoadingEnabled = false;
 
         public DbSet<Galaxy> Galaxies { get; set; }
         public DbSet<Star> Stars { get; set; }

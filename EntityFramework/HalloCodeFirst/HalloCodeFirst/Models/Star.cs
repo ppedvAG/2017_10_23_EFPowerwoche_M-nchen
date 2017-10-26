@@ -2,7 +2,7 @@
 
 namespace HalloCodeFirst.Models
 {
-    internal class Star
+    public class Star
     {
         public int Id { get; set; }
         public string Name { get; set; }

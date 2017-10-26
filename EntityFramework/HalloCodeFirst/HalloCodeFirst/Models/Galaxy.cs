@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace HalloCodeFirst.Models
 {
     [Table("Galaxies_Table")]
-    internal class Galaxy
+    public class Galaxy
     {
         [Key]
         [Column("GalaxyId")]
