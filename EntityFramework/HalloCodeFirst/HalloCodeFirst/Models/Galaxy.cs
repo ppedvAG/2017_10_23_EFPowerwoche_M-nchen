@@ -18,7 +18,7 @@ namespace HalloCodeFirst.Models
 
         public string Name { get; set; }
 
-        [Column(TypeName = "date")]
+        //[Column(TypeName = "date")]
         public DateTime DiscoveryDate { get; set; }
 
         //[NotMapped]

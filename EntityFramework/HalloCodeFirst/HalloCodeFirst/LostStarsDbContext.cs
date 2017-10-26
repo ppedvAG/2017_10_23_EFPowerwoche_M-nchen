@@ -17,6 +17,7 @@ namespace HalloCodeFirst
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Add<Conventions.StringConventions>();
+            modelBuilder.Conventions.Add<Conventions.ForSqlServerDateTimeToDateConvention>();
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.Add(new Configurations.StarConfiguration());
 
@@ -25,6 +26,12 @@ namespace HalloCodeFirst
                 .WithRequired(s => s.Galaxy)
                 .HasForeignKey(s => s.GalaxyId)
                 .WillCascadeOnDelete(true);
+            // entweder ↑ oder ↓
+            //modelBuilder.Entity<Star>()
+            //    .HasRequired(s => s.Galaxy)
+            //    .WithMany(g => g.Stars)
+            //    .HasForeignKey(s => s.GalaxyId)
+            //    .WillCascadeOnDelete(true);
         }
     }
 }

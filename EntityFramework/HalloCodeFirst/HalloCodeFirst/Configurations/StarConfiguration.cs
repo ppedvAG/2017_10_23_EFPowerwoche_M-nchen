@@ -14,8 +14,8 @@ namespace HalloCodeFirst.Configurations
             Property(s => s.Id)
                 .HasColumnName("StarId");
 
-            Property(s => s.DiscoveryDate)
-                .HasColumnType("date");
+            //Property(s => s.DiscoveryDate)
+            //    .HasColumnType("date");
 
             //modelBuilder.Entity<Star>().HasKey(s => new { s.Id, s.Id2, s.Id3 });
             //modelBuilder.Entity<Star>().Ignore(s => s.Mass);

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\StarConfiguration.cs" />
+    <Compile Include="Conventions\ForSqlServerDateTimeToDateConvention.cs" />
     <Compile Include="Conventions\StringConventions.cs" />
     <Compile Include="LostStarsDbContext.cs" />
     <Compile Include="Migrations\201710251002031_InitialMigration.cs" />
@@ -75,6 +76,10 @@
     <Compile Include="Migrations\201710251411137_AddDescriptionToAllTables.cs" />
     <Compile Include="Migrations\201710251411137_AddDescriptionToAllTables.Designer.cs">
       <DependentUpon>201710251411137_AddDescriptionToAllTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710260724097_ChangeDefaultStringConvention.cs" />
+    <Compile Include="Migrations\201710260724097_ChangeDefaultStringConvention.Designer.cs">
+      <DependentUpon>201710260724097_ChangeDefaultStringConvention.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Galaxy.cs" />
@@ -105,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710251411137_AddDescriptionToAllTables.resx">
       <DependentUpon>201710251411137_AddDescriptionToAllTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710260724097_ChangeDefaultStringConvention.resx">
+      <DependentUpon>201710260724097_ChangeDefaultStringConvention.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
