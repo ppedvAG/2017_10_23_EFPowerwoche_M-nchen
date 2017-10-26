@@ -1,6 +1,6 @@
 ﻿namespace HalloCodeFirst.Models
 {
-    public enum GalaxyForm : byte
+    internal enum GalaxyForm : byte
     {
         Elliptical,
         Shell,

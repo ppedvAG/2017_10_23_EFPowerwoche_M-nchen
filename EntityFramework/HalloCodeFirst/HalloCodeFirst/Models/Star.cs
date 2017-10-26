@@ -2,7 +2,7 @@
 
 namespace HalloCodeFirst.Models
 {
-    public class Star
+    internal class Star
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,6 +13,6 @@ namespace HalloCodeFirst.Models
 
         //[ForeignKey("Galaxy")]
         public int GalaxyId { get; set; }
-        public virtual Galaxy Galaxy { get; set; }
+        public Galaxy Galaxy { get; set; }
     }
 }
