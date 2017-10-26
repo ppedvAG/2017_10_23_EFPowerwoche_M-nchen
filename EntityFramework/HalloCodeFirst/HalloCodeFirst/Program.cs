@@ -10,24 +10,43 @@ namespace HalloCodeFirst
     {
         static void Main(string[] args)
         {
-            EagerLoading();
+            PreLoading();
 
             Console.WriteLine("Console done...");
             Console.ReadKey();
         }
 
+        private static void PreLoading()
+        {
+            using (var context = new LostStarsDbContext())
+            {
+                context.Stars.Where(s => s.GalaxyId == 1).ToList();
+                // 100 Stars werden im context gecached.
+
+                // weil die Stars für diese Galaxy bereits im context gecached sind,
+                // werden die Navigationsproperties automatisch richtig initialisiert
+                // ! nur bei 1-N Verbindungen !
+                // genannt: Relationship Fixup
+                var galaxy = context.Galaxies.Single(g => g.Id == 1);
+
+                Console.WriteLine($"{galaxy.Name} | {galaxy.Form}");
+                foreach (var s in galaxy.Stars)
+                    Console.WriteLine($"\t{s.Name} - ist {s.DistanceToEarth} Lichtjahre entfernt.");
+            }
+        }
+
         private static void EagerLoading()
         {
             using (var context = new LostStarsDbContext())
-            { 
+            {
                 //var galaxies = context.Galaxies.Include(g => "Stars").Take(20);  
-                
-                // wichtig: using System.Data.Entity;
-                var galaxies = context.Galaxies.Include(g => g.Stars).Take(20);                       
 
-                foreach (var galaxy in galaxies)                                
-                {                                                               
-                    Console.WriteLine($"{galaxy.Name} | {galaxy.Form}");                                 
+                // wichtig: using System.Data.Entity;
+                var galaxies = context.Galaxies.Include(g => g.Stars).Take(20);
+
+                foreach (var galaxy in galaxies)
+                {
+                    Console.WriteLine($"{galaxy.Name} | {galaxy.Form}");
 
                     foreach (var s in galaxy.Stars)
                         Console.WriteLine($"\t{s.Name} - ist {s.DistanceToEarth} Lichtjahre entfernt.");
