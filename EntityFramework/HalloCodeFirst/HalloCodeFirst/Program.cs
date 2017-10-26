@@ -1,7 +1,6 @@
 ﻿using HalloCodeFirst.Models;
 using System;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using Tynamix.ObjectFiller;
 
@@ -11,12 +10,40 @@ namespace HalloCodeFirst
     {
         static void Main(string[] args)
         {
-            PerformanceCount();
+            ChangeTracker();
 
             Console.WriteLine("Console done...");
             Console.ReadKey();
         }
+        
+        private static void ChangeTracker()
+        {
+            using (var context = new LostStarsDbContext())
+            {
+                context.Stars.First(); // Initialize Query
 
+                context.Database.Log = Console.WriteLine;
+
+                var galaxies = context.Galaxies.Take(10).ToList();
+
+                var firstGalaxy = galaxies[0];
+                var secondGalaxy = galaxies[1];
+
+                firstGalaxy.Name = "Franx Xaver Gruber";
+
+                context.Galaxies.Add(new Galaxy());
+                context.Galaxies.Remove(secondGalaxy);
+
+                Console.WriteLine($"{context.ChangeTracker.Entries<Galaxy>().Count()} Entries in ChangeTracker");
+
+                foreach (var entry in context.ChangeTracker.Entries<Galaxy>())
+                {
+                    Console.WriteLine(entry.State);
+                }
+
+                //context.SaveChanges();
+            }
+        }
         private static void PerformanceCount()
         {
             var totalCount = 0l;
@@ -50,7 +77,6 @@ namespace HalloCodeFirst
             Console.WriteLine($" - average {(totalToListCount / iterations):0.00}ms");
             // !!! NEVER  use ToList().Count or ToList().Count() just to count !!!
         }
-
         private static void IQueryable()
         {
             using (var context = new LostStarsDbContext())
@@ -64,7 +90,6 @@ namespace HalloCodeFirst
                     Console.WriteLine($"{g.Name,-11} | {g.Form,-10} | {g.DiscoveryDate.Year}");
             }
         }
-
         private static void PreLoading()
         {
             using (var context = new LostStarsDbContext())
@@ -83,7 +108,6 @@ namespace HalloCodeFirst
                     Console.WriteLine($"\t{s.Name} - ist {s.DistanceToEarth} Lichtjahre entfernt.");
             }
         }
-
         private static void EagerLoading()
         {
             using (var context = new LostStarsDbContext())
@@ -102,7 +126,6 @@ namespace HalloCodeFirst
                 }
             }
         }
-
         private static void LazyLoading()
         {
             using (var context = new LostStarsDbContext())
@@ -124,7 +147,6 @@ namespace HalloCodeFirst
                 }
             }
         }
-
         private static async void CreateSampleData()
         {
             var galaxyFiller = new Filler<Galaxy>();
