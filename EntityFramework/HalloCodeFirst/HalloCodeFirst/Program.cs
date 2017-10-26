@@ -1,6 +1,7 @@
 ﻿using HalloCodeFirst.Models;
 using System;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using Tynamix.ObjectFiller;
 
@@ -10,10 +11,58 @@ namespace HalloCodeFirst
     {
         static void Main(string[] args)
         {
-            PreLoading();
+            PerformanceCount();
 
             Console.WriteLine("Console done...");
             Console.ReadKey();
+        }
+
+        private static void PerformanceCount()
+        {
+            var totalCount = 0l;
+            var totalToListCount = 0l;
+
+            var iterations = 100.0;
+
+            for (int i = 0; i < iterations; i++)
+            {
+                using (var context = new LostStarsDbContext())
+                {
+                    context.Galaxies.First();
+                    using (new Stopwatch(ms => totalCount += ms))
+                        context.Stars.Count();
+
+                    using (new Stopwatch(ms => totalToListCount += ms))
+                        context.Stars.ToList().Count();
+                }
+                Console.WriteLine($"{i}/{iterations}");
+            }
+
+            using (var context = new LostStarsDbContext())
+            {
+                var countStars = context.Stars.Count();
+                Console.WriteLine($"{countStars} Stars");
+            }
+
+            Console.WriteLine($"{iterations} * Count() took {totalCount}ms");
+            Console.WriteLine($" - average {(totalCount / iterations):0.00}ms");
+            Console.WriteLine($"{iterations} * ToList().Count() took {totalToListCount}ms");
+            Console.WriteLine($" - average {(totalToListCount / iterations):0.00}ms");
+            // !!! NEVER  use ToList().Count or ToList().Count() just to count !!!
+        }
+
+        private static void IQueryable()
+        {
+            using (var context = new LostStarsDbContext())
+            {
+                var galaxyQuery = context.Galaxies.Where(g => g.DiscoveryDate.Year > 1900);
+                galaxyQuery = galaxyQuery.OrderBy(g => g.Name);
+                galaxyQuery = galaxyQuery.Where(g => g.Stars.Count() < 30);
+
+                var galaxies = galaxyQuery.ToList();
+                foreach (var g in galaxies)
+                    Console.WriteLine($"{g.Name,-11} | {g.Form,-10} | {g.DiscoveryDate.Year}");
+            }
         }
 
         private static void PreLoading()
