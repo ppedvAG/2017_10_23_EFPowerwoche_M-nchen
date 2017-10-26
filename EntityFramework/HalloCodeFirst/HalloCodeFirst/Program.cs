@@ -10,12 +10,69 @@ namespace HalloCodeFirst
     {
         static void Main(string[] args)
         {
-            ChangeTracker();
+            AsNoTracking();
 
             Console.WriteLine("Console done...");
             Console.ReadKey();
         }
-        
+
+        private static void AsNoTracking()
+        {
+            using (var context = new LostStarsDbContext())
+            {
+                var stars = context.Stars.AsNoTracking().Take(10).ToList();
+
+                Console.WriteLine($"{context.ChangeTracker.Entries().Count()} Entries in Changetracker");
+
+                foreach (var s in stars)
+                    Console.WriteLine(s.Name);
+
+                var firstStar = stars[0];
+
+
+                firstStar.Name = "The new name";
+                context.Stars.Attach(firstStar);
+
+                Console.WriteLine($"{context.ChangeTracker.Entries().Count()} Entries in Changetracker");
+                Console.WriteLine(context.Entry(firstStar).State);
+                //context.Entry(firstStar).State = EntityState.Modified;
+                context.Entry(firstStar).Property(s => s.Name).IsModified = true;
+            }
+        }
+        private static void PerformanceAsNoTracking()
+        {
+            var totalWithTracking = 0l;
+            var totalAsNoTracking = 0l;
+            const int iterations = 100;
+
+            for (int i = 0; i < iterations; i++)
+            {
+                using (var context = new LostStarsDbContext())
+                {
+                    context.Galaxies.First();
+                    using (new Stopwatch(t => totalWithTracking += t))
+                        context.Stars.ToList();
+                }
+
+                using (var context = new LostStarsDbContext())
+                {
+                    context.Galaxies.First();
+                    using (new Stopwatch(t => totalAsNoTracking += t))
+                        context.Stars.AsNoTracking().ToList();
+                }
+                Console.WriteLine($"{i + 1}/{iterations}");
+            }
+
+            using (var context = new LostStarsDbContext())
+            {
+                var countStars = context.Stars.Count();
+                Console.WriteLine($"{countStars} Stars");
+            }
+            Console.WriteLine($"{iterations} * WithTracking took {totalWithTracking}ms");
+            Console.WriteLine($" - average {(totalWithTracking / (double)iterations):0.00}ms");
+            Console.WriteLine($"{iterations} * AsNoTracking took {totalAsNoTracking}ms");
+            Console.WriteLine($" - average {(totalAsNoTracking / (double)iterations):0.00}ms");
+        }
         private static void ChangeTracker()
         {
             using (var context = new LostStarsDbContext())
