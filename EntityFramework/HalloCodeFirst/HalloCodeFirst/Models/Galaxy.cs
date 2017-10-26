@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace HalloCodeFirst.Models
 {
     [Table("Galaxies_Table")]
-    internal class Galaxy
+    public class Galaxy
     {
         [Key]
         [Column("GalaxyId")]
@@ -27,6 +27,6 @@ namespace HalloCodeFirst.Models
 
         public string Description { get; set; }
 
-        public ICollection<Star> Stars { get; } = new HashSet<Star>();
+        public virtual ICollection<Star> Stars { get; } = new HashSet<Star>();
     }
 }
