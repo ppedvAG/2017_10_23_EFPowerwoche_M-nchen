@@ -10,7 +10,7 @@ namespace HalloCodeFirst
     {
         static void Main(string[] args)
         {
-            AsNoTracking();
+            ChangeTracker();
 
             Console.WriteLine("Console done...");
             Console.ReadKey();
@@ -28,7 +28,6 @@ namespace HalloCodeFirst
                     Console.WriteLine(s.Name);
 
                 var firstStar = stars[0];
-
 
                 firstStar.Name = "The new name";
                 context.Stars.Attach(firstStar);
@@ -94,8 +93,16 @@ namespace HalloCodeFirst
                 Console.WriteLine($"{context.ChangeTracker.Entries<Galaxy>().Count()} Entries in ChangeTracker");
 
                 foreach (var entry in context.ChangeTracker.Entries<Galaxy>())
-                {
                     Console.WriteLine(entry.State);
+
+                Console.WriteLine("The modified once:");
+                foreach (var entry in context.ChangeTracker.Entries<Galaxy>().Where(e => e.State == EntityState.Modified))
+                {
+                    foreach (var p in entry.OriginalValues.PropertyNames.Where(n => n != "Description"))
+                    {
+                        Console.WriteLine($"\tCurrent  {p,-13}: {entry.CurrentValues.GetValue<object>(p)}");
+                        Console.WriteLine($"\tOriginal {p,-13}: {entry.OriginalValues.GetValue<object>(p)}");
+                    }
                 }
 
                 //context.SaveChanges();
@@ -138,9 +145,12 @@ namespace HalloCodeFirst
         {
             using (var context = new LostStarsDbContext())
             {
+                context.Database.Log = Console.WriteLine;
+
                 var galaxyQuery = context.Galaxies.Where(g => g.DiscoveryDate.Year > 1900);
                 galaxyQuery = galaxyQuery.OrderBy(g => g.Name);
-                galaxyQuery = galaxyQuery.Where(g => g.Stars.Count() < 30);
+                galaxyQuery = galaxyQuery.Where(g => g.DiscoveryDate.Year < 1950);
+                //galaxyQuery = galaxyQuery.Where(g => g.Stars.Count() < 30);
 
                 var galaxies = galaxyQuery.ToList();
                 foreach (var g in galaxies)
@@ -169,7 +179,7 @@ namespace HalloCodeFirst
         {
             using (var context = new LostStarsDbContext())
             {
-                //var galaxies = context.Galaxies.Include(g => "Stars").Take(20);  
+                //var galaxies = context.Galaxies.Include("Stars").Take(20);  
 
                 // wichtig: using System.Data.Entity;
                 var galaxies = context.Galaxies.Include(g => g.Stars).Take(20);
@@ -206,6 +216,8 @@ namespace HalloCodeFirst
         }
         private static async void CreateSampleData()
         {
+            // http://objectfiller.net/
+            // https://objectfillernet.readme.io/v1.5.3/reference
             var galaxyFiller = new Filler<Galaxy>();
             galaxyFiller.Setup()
                 .OnProperty(g => g.Id).IgnoreIt()
