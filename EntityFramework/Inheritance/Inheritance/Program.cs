@@ -1,4 +1,5 @@
 ﻿using Inheritance.Models;
+using System;
 
 namespace Inheritance
 {
@@ -6,7 +7,21 @@ namespace Inheritance
     {
         static void Main(string[] args)
         {
-            TPT();
+            TPC();
+        }
+
+        private static void TPC()
+        {
+            using (var context = new InheritanceContext())
+            {
+                var tisch = new Tisch { Id = Guid.NewGuid(), Material = "Holz", AnzahlBeine = 7 };
+                var uhr = new Uhr { Id = Guid.NewGuid(), Material = "Plastik", Zeit = DateTime.Now };
+
+                context.Products.Add(tisch);
+                context.Products.Add(uhr);
+
+                context.SaveChanges();
+            }
         }
 
         private static void TPT()
