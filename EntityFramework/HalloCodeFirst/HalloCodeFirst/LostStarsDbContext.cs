@@ -23,18 +23,6 @@ namespace HalloCodeFirst
 
             modelBuilder.Configurations.Add(new Configurations.GalaxyConfiguration());
             modelBuilder.Configurations.Add(new Configurations.StarConfiguration());
-
-            modelBuilder.Entity<Galaxy>()
-                .HasMany(g => g.Stars)
-                .WithRequired(s => s.Galaxy)
-                .HasForeignKey(s => s.GalaxyId)
-                .WillCascadeOnDelete(true);
-            // entweder ↑ oder ↓
-            //modelBuilder.Entity<Star>()
-            //    .HasRequired(s => s.Galaxy)
-            //    .WithMany(g => g.Stars)
-            //    .HasForeignKey(s => s.GalaxyId)
-            //    .WillCascadeOnDelete(true);
         }
     }
 }

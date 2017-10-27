@@ -15,6 +15,11 @@ namespace HalloCodeFirst.Configurations
 
             Property(g => g.Form)
                 .HasColumnName("GalaxyForm");
+
+            HasMany(g => g.Stars)
+               .WithRequired(s => s.Galaxy)
+               .HasForeignKey(s => s.GalaxyId)
+               .WillCascadeOnDelete(true);
         }
     }
 }
