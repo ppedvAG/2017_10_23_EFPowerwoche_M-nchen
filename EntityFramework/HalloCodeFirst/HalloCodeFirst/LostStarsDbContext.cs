@@ -18,6 +18,8 @@ namespace HalloCodeFirst
             modelBuilder.Conventions.Add<Conventions.StringConventions>();
             modelBuilder.Conventions.Add<Conventions.ForSqlServerDateTimeToDateConvention>();
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Configurations.Add(new Configurations.GalaxyConfiguration());
             modelBuilder.Configurations.Add(new Configurations.StarConfiguration());
 
             modelBuilder.Entity<Galaxy>()

@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\GalaxyConfiguration.cs" />
     <Compile Include="Configurations\StarConfiguration.cs" />
     <Compile Include="Conventions\ForSqlServerDateTimeToDateConvention.cs" />
     <Compile Include="Conventions\StringConventions.cs" />
