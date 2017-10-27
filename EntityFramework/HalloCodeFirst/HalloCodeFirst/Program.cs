@@ -10,10 +10,95 @@ namespace HalloCodeFirst
     {
         static void Main(string[] args)
         {
-            ChangeTracker();
+            Concurrency();
 
             Console.WriteLine("Console done...");
             Console.ReadKey();
+        }
+
+        private static void Concurrency()
+        {
+            using (var firstContext = new LostStarsDbContext())
+            using (var secondContext = new LostStarsDbContext())
+            {
+
+                var firstGalaxyFromFirstContext = firstContext.Galaxies.First();
+                var firstGalaxyFromSecondContext = secondContext.Galaxies.First();
+
+
+                Console.WriteLine($"Galaxy from FirstContext: {firstGalaxyFromFirstContext.Name}");
+                Console.WriteLine($"Galaxy from SecondContext: {firstGalaxyFromSecondContext.Name}");
+                Console.WriteLine($"Are the same Object: {Equals(firstGalaxyFromFirstContext, firstGalaxyFromSecondContext)}");
+
+                var aGalaxyNameHopefullyNobodyProvides = "0fe5VsvHkib7sWcL46Pc5KqIHjASTce8M6VIpucXEObtAQTmsGQBhSKxp2j8llDs5wT378XVzc9AxRDf";
+                firstGalaxyFromFirstContext.Name = aGalaxyNameHopefullyNobodyProvides;
+                Save(firstContext);
+
+                Console.Write("How do you want to rename the galaxy? ");
+                var newGalaxyName = Console.ReadLine();
+                while (string.IsNullOrWhiteSpace(newGalaxyName))
+                {
+                    Console.WriteLine("Please provide a galaxy name!");
+                    newGalaxyName = Console.ReadLine();
+                }
+
+                firstGalaxyFromSecondContext.Name = newGalaxyName;
+
+                Save(secondContext);
+            }
+        }
+        private static void Save(LostStarsDbContext context)
+        {
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
+            {
+                foreach (var entry in ex.Entries)
+                {
+                    var dbValues = entry.GetDatabaseValues();
+                    var modifiedNames = entry.CurrentValues.PropertyNames.Where(n => entry.Property(n).IsModified);
+
+                    Console.WriteLine($"\nA {entry.Entity.GetType().Name} was edited in the Database.");
+                    foreach (var modifiedName in modifiedNames.Where(n => n.ToLower() != "timestamp"))
+                    {
+                        Console.WriteLine($"Original Value for Property {modifiedName}: {entry.OriginalValues.GetValue<object>(modifiedName)}");
+                        Console.WriteLine($"Your     Value for Property {modifiedName}: {entry.CurrentValues.GetValue<object>(modifiedName)}");
+                        Console.WriteLine($"Database Value for Property {modifiedName}: {dbValues.GetValue<object>(modifiedName)}");
+                    }
+
+                    var wasInputInvalid = true;
+                    while (wasInputInvalid)
+                    {
+                        wasInputInvalid = false;
+                        Console.WriteLine("\nWhich Values would you like to keep?");
+                        Console.WriteLine(" (1) Original Values");
+                        Console.WriteLine(" (2) Your Values");
+                        Console.WriteLine(" (3) Database Values");
+                        var input = Console.ReadLine();
+                        switch (input)
+                        {
+                            case "1":
+                                entry.CurrentValues.SetValues(entry.OriginalValues);
+                                entry.OriginalValues.SetValues(dbValues);
+                                break;
+                            case "2":
+                                entry.OriginalValues.SetValues(dbValues);
+                                break;
+                            case "3":
+                                entry.Reload();
+                                break;
+
+                            default:
+                                Console.WriteLine("Invalid Input");
+                                wasInputInvalid = true;
+                                break;
+                        }
+                    }
+                }
+                Save(context);
+            }
         }
 
         private static void AsNoTracking()
