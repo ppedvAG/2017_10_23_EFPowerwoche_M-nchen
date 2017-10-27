@@ -2,7 +2,7 @@
 
 namespace HalloCodeFirst.Models
 {
-    public class CelestialBody
+    public abstract class CelestialBody
     {
         public int Id { get; set; }
         public string Name { get; set; }
