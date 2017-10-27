@@ -8,5 +8,7 @@ namespace HalloCodeFirst.Models
         public string Name { get; set; }
         public DateTime DiscoveryDate { get; set; }
         public string Description { get; set; }
+
+        public byte[] Timestamp { get; set; }
     }
 }

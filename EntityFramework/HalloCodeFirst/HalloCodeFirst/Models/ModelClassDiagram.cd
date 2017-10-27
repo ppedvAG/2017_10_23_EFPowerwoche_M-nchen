@@ -24,9 +24,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="HalloCodeFirst.Models.CelestialBody">
-    <Position X="6.5" Y="1.5" Width="2.25" />
+    <Position X="6.5" Y="1.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAgAAAAAAAAAAQAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAgAAAAAAACAAQAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\CelesticalBody.cs</FileName>
     </TypeIdentifier>
   </Class>

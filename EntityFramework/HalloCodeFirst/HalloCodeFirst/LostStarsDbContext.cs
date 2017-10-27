@@ -15,8 +15,10 @@ namespace HalloCodeFirst
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Add<Conventions.StringConventions>();
             modelBuilder.Conventions.Add<Conventions.ForSqlServerDateTimeToDateConvention>();
+            modelBuilder.Conventions.Add<Conventions.StringConventions>();
+            modelBuilder.Conventions.Add<Conventions.TimestampConvention>();
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Configurations.Add(new Configurations.GalaxyConfiguration());
