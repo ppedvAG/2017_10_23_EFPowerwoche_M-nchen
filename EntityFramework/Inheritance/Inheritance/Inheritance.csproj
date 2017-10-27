@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201710270755467_TPH.Designer.cs">
       <DependentUpon>201710270755467_TPH.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710270811472_TPT.cs" />
+    <Compile Include="Migrations\201710270811472_TPT.Designer.cs">
+      <DependentUpon>201710270811472_TPT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -72,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710270755467_TPH.resx">
       <DependentUpon>201710270755467_TPH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710270811472_TPT.resx">
+      <DependentUpon>201710270811472_TPT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
