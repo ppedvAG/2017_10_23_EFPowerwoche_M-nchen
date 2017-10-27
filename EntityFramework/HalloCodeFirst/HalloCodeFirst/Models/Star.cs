@@ -1,17 +1,10 @@
-﻿using System;
-
-namespace HalloCodeFirst.Models
+﻿namespace HalloCodeFirst.Models
 {
-    public class Star
+    public class Star : CelestialBody
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime DiscoveryDate { get; set; }
         public decimal Mass { get; set; }
         public float DistanceToEarth { get; set; }
-        public string Description { get; set; }
 
-        //[ForeignKey("Galaxy")]
         public int GalaxyId { get; set; }
         public Galaxy Galaxy { get; set; }
     }

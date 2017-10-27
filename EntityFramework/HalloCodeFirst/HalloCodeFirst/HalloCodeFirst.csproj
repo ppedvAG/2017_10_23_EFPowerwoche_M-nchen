@@ -85,6 +85,7 @@
       <DependentUpon>201710260724097_ChangeDefaultStringConvention.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CelesticalBody.cs" />
     <Compile Include="Models\Galaxy.cs" />
     <Compile Include="Models\GalaxyForm.cs" />
     <Compile Include="Models\Star.cs" />
@@ -94,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Models\ModelClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
